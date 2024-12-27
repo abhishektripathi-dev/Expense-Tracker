@@ -19,7 +19,10 @@
     </form>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
+    const BASE_URL = "http://localhost:3000";
+
     const signinForm = document.getElementById("signinForm");
 
     signinForm.addEventListener("submit", async (event) => {
@@ -29,7 +32,7 @@
       const password = document.getElementById("password").value;
 
       try {
-        const response = await axios.post("/signin", { email, password });
+        const response = await axios.post(`${BASE_URL}/api/signin`, { email, password });
 
         if (response.status === 200) {
           alert("Login successful! Redirecting to dashboard.");
