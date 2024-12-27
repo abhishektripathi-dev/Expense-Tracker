@@ -32,7 +32,7 @@
       const password = document.getElementById("password").value;
 
       try {
-        const response = await axios.post(`${BASE_URL}/api/signin`, { email, password });
+        const response = await axios.post(`${BASE_URL}/api/login`, { email, password });
 
         if (response.status === 200) {
           alert("Login successful! Redirecting to dashboard.");
