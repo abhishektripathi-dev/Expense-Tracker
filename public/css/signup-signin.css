@@ -1,0 +1,79 @@
+/* Common CSS for Sign In and Sign Up */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+}
+
+.container input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.container input:focus {
+  border-color: teal;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 128, 128, 0.5);
+}
+
+.container button {
+  width: 100%;
+  padding: 12px;
+  background-color: teal;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.container button:hover {
+  background-color: #006d6d;
+}
+
+.container .link {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.container .link a {
+  color: teal;
+  text-decoration: none;
+}
+
+.container .link a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+}
