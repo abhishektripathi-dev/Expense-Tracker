@@ -17,7 +17,6 @@ exports.signup = async (req, res) => {
         await User.create({ name, email, password: hashedPassword });
         // Return success message
         res.status(201).json({ message: "User registered successfully" });
-
     } catch (error) {
         // Handle error
         console.error("Error registering user:", error);
@@ -54,13 +53,14 @@ exports.login = async (req, res) => {
     try {
         // Check if user exists
         const user = await User.findOne({ where: { email } });
+        console.log(user);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
         // Verify password
         const isPasswordValid = await bcrypt.compare(password, user.password);
-        
+
         if (!isPasswordValid) {
             return res.status(401).json({ message: "User not authorized" });
         }

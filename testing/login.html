@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <!-- <link rel="stylesheet" href="../public/css/signup-signin.css" /> -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f2f5;
+      }
+
+      .container {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+      }
+
+      .container h2 {
+        margin-bottom: 20px;
+        text-align: center;
+        color: #333;
+        font-size: 24px;
+      }
+
+      .container input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+
+      .password-container {
+        position: relative;
+      }
+
+      .password-container input {
+        padding-right: 40px; /* To make space for the icon */
+      }
+
+      .password-toggle {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 18px;
+        color: #888;
+      }
+
+      .password-toggle:hover {
+        color: teal;
+      }
+
+      .container button {
+        width: 100%;
+        padding: 12px;
+        background-color: teal;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .container button:hover {
+        background-color: #006d6d;
+      }
+
+      .container .link {
+        margin-top: 15px;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .container .link a {
+        color: teal;
+        text-decoration: none;
+      }
+
+      .container .link a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Sign In</h2>
+      <form id="signinForm">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email"
+          required
+        />
+        <div class="password-container">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <span id="togglePassword" class="password-toggle">👁️</span>
+        </div>
+        <button type="submit">Sign In</button>
+        <div class="link">
+          <p>
+            Don't have an account?
+            <a href="./signup.html">Sign Up</a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const BASE_URL = "http://localhost:3000";
+
+      // Toggle password visibility
+      const passwordInput = document.getElementById("password");
+      const togglePassword = document.getElementById("togglePassword");
+
+      togglePassword.addEventListener("click", () => {
+        // Toggle the input type between password and text
+        const type =
+          passwordInput.getAttribute("type") === "password"
+            ? "text"
+            : "password";
+        passwordInput.setAttribute("type", type);
+
+        // Change the icon accordingly
+        togglePassword.textContent = type === "password" ? "👁️" : "🙈";
+      });
+
+      // Sign-in form submission logic
+      const signinForm = document.getElementById("signinForm");
+
+      signinForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const password = passwordInput.value;
+
+        try {
+          const response = await axios.post(`${BASE_URL}/api/login`, {
+            email,
+            password,
+          });
+
+          if (response.status === 200) {
+            const { message } = response.data;
+            alert(
+              message || "Login successful! Redirecting to dashboard."
+            );
+            window.location.href = "/dashboard";
+          }
+        } catch (error) {
+          if (error.response && error.response.data) {
+            const { message } = error.response.data;
+            alert(message || "An error occurred during login.");
+          } else {
+            console.error("Error signing in:", error);
+            alert("An error occurred. Please try again later.");
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
