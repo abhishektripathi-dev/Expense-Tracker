@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -14,8 +15,8 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Header Section */
 .header {
-    /* border: 1px solid #ddd; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,23 +29,34 @@ body {
     color: teal;
 }
 
-.logout-button {
+.logout-button,
+.buy-premium-button {
     padding: 5px 10px;
     font-size: 14px;
     color: white;
-    background-color: #dc3545;
-    /* Red color */
     border: none;
     border-radius: 4px;
     cursor: pointer;
     text-align: center;
 }
 
-.logout-button:hover {
-    background-color: #a71d2a;
-    /* Darker red */
+.logout-button {
+    background-color: #dc3545;
 }
 
+.logout-button:hover {
+    background-color: #a71d2a;
+}
+
+.buy-premium-button {
+    background-color: teal;
+}
+
+.buy-premium-button:hover {
+    background-color: #309898;
+}
+
+/* Form Styles */
 form {
     display: flex;
     flex-direction: column;
@@ -76,6 +88,7 @@ form button:hover {
     margin-bottom: 15px;
 }
 
+/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -113,6 +126,7 @@ table td button.delete {
     color: white;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
     table {
         font-size: 12px;
@@ -123,6 +137,7 @@ table td button.delete {
     }
 }
 
+/* Empty Message Style */
 .empty {
     text-align: center;
     font-size: 14px;
