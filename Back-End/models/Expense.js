@@ -1,6 +1,6 @@
-// models/Expense.js
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
+const User = require("./User"); // Import the User model
 
 const Expense = sequelize.define("Expense", {
   id: {
@@ -15,12 +15,21 @@ const Expense = sequelize.define("Expense", {
   },
   description: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   category: {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  userId: { // Add the foreign key
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: User, // Reference the User model
+      key: "id",   // Use the `id` column in the User model
+    },
+    onDelete: "CASCADE", // Optional: Delete expenses if the user is deleted
+  },
 });
 
+// Export the model
 module.exports = Expense;

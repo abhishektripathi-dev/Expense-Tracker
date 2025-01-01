@@ -1,4 +1,8 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
+
 const User = require("../models/User");
 
 exports.signup = async (req, res) => {
@@ -8,13 +12,17 @@ exports.signup = async (req, res) => {
         // Check if user already exists
         const existingUser = await User.findOne({ where: { email } });
         console.log(existingUser);
+
         if (existingUser) {
             return res.status(400).json({ message: "User already exists" });
         }
+
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
+
         // Create user
         await User.create({ name, email, password: hashedPassword });
+
         // Return success message
         res.status(201).json({ message: "User registered successfully" });
     } catch (error) {
@@ -26,26 +34,20 @@ exports.signup = async (req, res) => {
     }
 };
 
-// exports.login = async (req, res) => {
-//   const { email, password } = req.body;
+function generateToken(user) {
+    const payload = { id: user.id, email: user.email };
+    const secretKey = process.env.JWT_SECRET_KEY;
 
-//   try {
-//     const user = await User.findOne({ where: { email } });
-//     if (!user) {
-//       return res.status(400).json({ message: "User not found. Please sign up first." });
-//     }
+    if (!secretKey) {
+        console.error(
+            "JWT_SECRET_KEY is not defined in the environment variables"
+        );
+        throw new Error("Server configuration error");
+    }
 
-//     const isPasswordValid = await bcrypt.compare(password, user.password);
-//     if (!isPasswordValid) {
-//       return res.status(400).json({ message: "Invalid email or password" });
-//     }
-
-//     res.status(200).json({ message: "Login successful" });
-//   } catch (error) {
-//     console.error("Error logging in:", error);
-//     res.status(500).json({ message: "An error occurred while logging in" });
-//   }
-// };
+    return jwt.sign(payload, secretKey, { expiresIn: "1h" });
+    // return jwt.sign(payload, secretKey);
+}
 
 exports.login = async (req, res) => {
     const { email, password } = req.body;
@@ -53,7 +55,7 @@ exports.login = async (req, res) => {
     try {
         // Check if user exists
         const user = await User.findOne({ where: { email } });
-        console.log(user);
+        // console.log(user);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -65,7 +67,10 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: "User not authorized" });
         }
 
-        res.status(200).json({ message: "User login successful" });
+        res.status(200).json({
+            message: "User login successful",
+            token: generateToken(user),
+        });
     } catch (error) {
         console.error("Error logging in:", error);
         res.status(500).json({ message: "An error occurred while logging in" });
