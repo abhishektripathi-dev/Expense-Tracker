@@ -40,6 +40,11 @@ body {
     text-align: center;
 }
 
+.premium-badge {
+    margin-left: 10px;
+    color: teal;
+}
+
 .logout-button {
     background-color: #dc3545;
 }
