@@ -45,8 +45,8 @@ function generateToken(user) {
         throw new Error("Server configuration error");
     }
 
-    return jwt.sign(payload, secretKey, { expiresIn: "1h" });
-    // return jwt.sign(payload, secretKey);
+    // return jwt.sign(payload, secretKey, { expiresIn: "1h" });
+    return jwt.sign(payload, secretKey);
 }
 
 exports.login = async (req, res) => {
@@ -74,5 +74,20 @@ exports.login = async (req, res) => {
     } catch (error) {
         console.error("Error logging in:", error);
         res.status(500).json({ message: "An error occurred while logging in" });
+    }
+};
+
+exports.getUserDetails = async (req, res) => {
+    try {
+        const user = await User.findByPk(req.user.id, {
+            attributes: ["id", "name", "email", "isPremium"],
+        });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Error fetching user details:", error);
+        res.status(500).json({ message: "Failed to fetch user details" });
     }
 };

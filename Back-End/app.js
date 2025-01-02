@@ -2,12 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+require("dotenv").config();
+
 // Database
 const sequelize = require("./config/database");
 
 // Routes
 const userRoutes = require("./routes/userRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 // Models
 const User = require("./models/User");
@@ -23,10 +26,8 @@ app.use(cors());
 // Routes
 app.use("/api", userRoutes);
 app.use("/api", expenseRoutes);
+app.use("/api", paymentRoutes);
 
-// Associations
-User.hasMany(Expense, { foreignKey: "userId", onDelete: "CASCADE" });
-Expense.belongsTo(User, { foreignKey: "userId" });
 
 // Database connection
 sequelize

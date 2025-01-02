@@ -31,5 +31,9 @@ const Expense = sequelize.define("Expense", {
   },
 });
 
+// Associations
+User.hasMany(Expense, { foreignKey: "userId", onDelete: "CASCADE" });
+Expense.belongsTo(User, { foreignKey: "userId" });
+
 // Export the model
 module.exports = Expense;
