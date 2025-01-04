@@ -21,7 +21,7 @@ The **Expense Tracker** is a web application that helps users track their daily 
   - Razorpay for payment gateway (if premium functionality is included)
 - **Backend**:
   - Node.js with Express.js
-  - MongoDB for database storage (or any other database solution)
+  - MySQL for database storage (or any other database solution)
   - JWT (JSON Web Token) for authentication
 
 ## Setup
@@ -29,7 +29,7 @@ The **Expense Tracker** is a web application that helps users track their daily 
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en/) installed
-- [MongoDB](https://www.mongodb.com/) or any other database you use for storage
+- [MySQL](https://www.mysql.com/) or any other database you use for storage
 - [Razorpay Account](https://razorpay.com/) if you are using premium features
 
 ### Installation

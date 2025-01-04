@@ -11,6 +11,7 @@ const sequelize = require("./config/database");
 const userRoutes = require("./routes/userRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+const leaderboardRoutes = require("./routes/leaderboardRoutes");
 
 // Models
 const User = require("./models/User");
@@ -27,6 +28,7 @@ app.use(cors());
 app.use("/api", userRoutes);
 app.use("/api", expenseRoutes);
 app.use("/api", paymentRoutes);
+app.use("/api", leaderboardRoutes);
 
 
 // Database connection
