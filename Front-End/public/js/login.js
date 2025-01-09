@@ -29,22 +29,27 @@ closeModal.addEventListener("click", () => {
     forgotPasswordModal.style.display = "none"; // Hide the modal
 });
 
-// Handle "Forgot Password" form submission
-forgotPasswordForm.addEventListener("submit", async (e) => {
+// forgot password logic
+
+const forgotSubmit = document.getElementById("forgotPasswordBtn");
+
+forgotSubmit.addEventListener("click", async (e) => {
     e.preventDefault();
     const email = document.getElementById("forgotEmail").value.trim();
 
     try {
-        const response = await axios.post(
-            `${BASE_URL}/password/forgotpassword`,
-            { email }
-        );
+        const response = await axios.post(`${BASE_URL}/api/forgotpassword`, {
+            email,
+        });
         alert(response.data.message || "Password reset email sent!");
+        forgotPasswordForm.reset(); // Reset the form
         forgotPasswordModal.style.display = "none"; // Hide the modal
     } catch (error) {
+        console.log("this message print first");
+        console.log(error);
         alert(
             error.response?.data?.message ||
-                "An error occurred. Please try again."
+            "An error occurred. Please try again."
         );
     }
 });

@@ -95,7 +95,7 @@ const addOrUpdateExpense = async (event) => {
     }
 
     const expenseData = { amount, description, category };
-
+ 
     try {
         if (editingExpenseId) {
             await axios.put(
