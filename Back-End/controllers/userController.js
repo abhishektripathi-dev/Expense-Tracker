@@ -39,14 +39,14 @@ function generateToken(user) {
     const secretKey = process.env.JWT_SECRET_KEY;
 
     if (!secretKey) {
-        console.error(
+        console.log(
             "JWT_SECRET_KEY is not defined in the environment variables"
         );
         throw new Error("Server configuration error");
     }
 
     // return jwt.sign(payload, secretKey, { expiresIn: "1h" });
-    return jwt.sign(payload, secretKey);
+    return jwt.sign(payload, secretKey, { expiresIn: "1h" });
 }
 
 exports.login = async (req, res) => {

@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
-const PremiumPayment = require("./PremiumPayment"); // Import PremiumPayment model
+const sequelize = require("../utils/database");
 
 const User = sequelize.define("User", {
     id: {
@@ -28,9 +27,5 @@ const User = sequelize.define("User", {
         defaultValue: false, // Default to non-premium
     },
 });
-
-// Associations
-User.hasMany(PremiumPayment, { foreignKey: "userId", onDelete: "CASCADE" });
-PremiumPayment.belongsTo(User, { foreignKey: "userId" });
 
 module.exports = User;

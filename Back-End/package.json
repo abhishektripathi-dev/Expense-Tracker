@@ -15,11 +15,15 @@
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.12.0",
+    "nodemailer": "^6.9.16",
     "razorpay": "^2.9.5",
-    "sequelize": "^6.37.5"
+    "sequelize": "^6.37.5",
+    "sib-api-v3-sdk": "^8.5.0",
+    "uuid": "^11.0.4"
   }
 }

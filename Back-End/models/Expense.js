@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
+const sequelize = require("../utils/database"); // Import the connection instance
 const User = require("./User"); // Import the User model
 
 const Expense = sequelize.define("Expense", {
@@ -31,9 +31,6 @@ const Expense = sequelize.define("Expense", {
   },
 });
 
-// Associations
-User.hasMany(Expense, { foreignKey: "userId", onDelete: "CASCADE" });
-Expense.belongsTo(User, { foreignKey: "userId" });
 
 // Export the model
 module.exports = Expense;
