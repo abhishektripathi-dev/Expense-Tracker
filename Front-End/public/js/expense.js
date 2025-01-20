@@ -43,7 +43,7 @@ categorySelect.addEventListener("change", () => {
 
 // Fetch expenses
 let currentPage = 1;
-const limit = 2;
+let limit = localStorage.getItem('itemsPerPage') || 2;
 
 const fetchExpenses = async (page = 1) => {
     try {
@@ -85,6 +85,16 @@ document.getElementById("nextPage").addEventListener("click", () => {
     currentPage++;
     fetchExpenses(currentPage);
 });
+
+document.getElementById('itemsPerPage').addEventListener('change', (event) => {
+    limit = event.target.value;
+    localStorage.setItem('itemsPerPage', limit);
+    currentPage = 1; // Reset to first page
+    fetchExpenses(currentPage);
+});
+
+// Set the dropdown to the stored value
+document.getElementById('itemsPerPage').value = limit;
 
 // Populate expense table
 const populateTable = (expenses) => {

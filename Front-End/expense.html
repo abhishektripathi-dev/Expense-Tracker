@@ -71,11 +71,24 @@
             No expenses found. Add one above!
         </p>
 
+        <div class="pagination-controls">
+            <label for="itemsPerPage">Items per page:</label>
+            <select id="itemsPerPage">
+                <option value="2">2</option>
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+            </select>
+        </div>
+
         <div class="pagination">
             <button id="prevPage" disabled>Previous</button>
             <span id="pageInfo">Page 1</span>
             <button id="nextPage">Next</button>
         </div>
+
+
     </div>
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
