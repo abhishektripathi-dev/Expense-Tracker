@@ -31,6 +31,8 @@ exports.signup = async (req, res) => {
         res.status(500).json({
             message: "An error occurred while registering user",
         });
+        // The HTTP status code 500, also known as an "Internal Server Error",
+        // indicates that the server was unable to fulfill a request due to an unexpected condition.
     }
 };
 
@@ -59,6 +61,9 @@ exports.login = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
+        // A 404 status code, also known as a "404 not found" error, 
+        // indicates that a server was able to communicate with a browser 
+        // but could not find the requested resource.
 
         // Verify password
         const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -66,11 +71,17 @@ exports.login = async (req, res) => {
         if (!isPasswordValid) {
             return res.status(401).json({ message: "User not authorized" });
         }
+        //A 401 status code is an HTTP
+        //  response code that indicates a request was not successful 
+        // because it lacked valid authentication credentials. 
+        // This error is also known as an "Unauthorized" error.
 
         res.status(200).json({
             message: "User login successful",
             token: generateToken(user),
         });
+        // The HTTP 200 OK status code indicates that a request was successful.
+        //  It's the most common response a server returns to a valid request.
     } catch (error) {
         console.error("Error logging in:", error);
         res.status(500).json({ message: "An error occurred while logging in" });

@@ -17,7 +17,7 @@ const otherCategoryInput = document.getElementById("otherCategoryInput");
 const expenseTableBody = document.getElementById("expenseTableBody");
 const emptyMessage = document.getElementById("emptyMessage");
 const logoutButton = document.getElementById("logoutButton");
-const headerButtonSection = document.querySelector(".header-button")
+const headerButtonSection = document.querySelector(".header-button");
 const premiumButton = document.getElementById("buyPremiumButton");
 const header = document.querySelector(".header");
 
@@ -42,15 +42,21 @@ categorySelect.addEventListener("change", () => {
 });
 
 // Fetch expenses
-const fetchExpenses = async () => {
-    try {
-        const response = await axios.get(`${BASE_URL}/api/expenses`, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
+let currentPage = 1;
+const limit = 2;
 
-        const expenses = response.data;
+const fetchExpenses = async (page = 1) => {
+    try {
+        const response = await axios.get(
+            `${BASE_URL}/api/expenses?page=${page}&limit=${limit}`,
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+        const { expenses, pagination } = response.data;
         emptyMessage.style.display = expenses.length === 0 ? "block" : "none";
         populateTable(expenses);
+        updatePagination(pagination);
     } catch (error) {
         if (error.response && error.response.status === 401) {
             handleUnauthorized();
@@ -59,6 +65,26 @@ const fetchExpenses = async () => {
         }
     }
 };
+
+
+const updatePagination = (pagination) => {
+    const { totalPages, currentPage } = pagination;
+    document.getElementById("pageInfo").textContent = `Page ${currentPage}`;
+    document.getElementById("prevPage").disabled = currentPage === 1;
+    document.getElementById("nextPage").disabled = currentPage === totalPages;
+};
+
+document.getElementById("prevPage").addEventListener("click", () => {
+    if (currentPage > 1) {
+        currentPage--;
+        fetchExpenses(currentPage);
+    }
+});
+
+document.getElementById("nextPage").addEventListener("click", () => {
+    currentPage++;
+    fetchExpenses(currentPage);
+});
 
 // Populate expense table
 const populateTable = (expenses) => {
@@ -95,7 +121,7 @@ const addOrUpdateExpense = async (event) => {
     }
 
     const expenseData = { amount, description, category };
- 
+
     try {
         if (editingExpenseId) {
             await axios.put(
@@ -107,10 +133,14 @@ const addOrUpdateExpense = async (event) => {
             );
             formButton.textContent = "Add Expense";
         } else {
-            const response = await axios.post(`${BASE_URL}/api/expenses`, expenseData, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            console.log("Expense added:",response.data);
+            const response = await axios.post(
+                `${BASE_URL}/api/expenses`,
+                expenseData,
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+            console.log("Expense added:", response.data);
         }
 
         editingExpenseId = null;
@@ -206,7 +236,6 @@ logoutButton.addEventListener("click", () => {
 // });
 // }
 
-
 // Function to check premium status
 const checkPremiumStatus = async () => {
     try {
@@ -227,7 +256,10 @@ const checkPremiumStatus = async () => {
             premiumBadge.classList.add("premium-badge");
             premiumBadge.textContent = "Premium ⭐";
 
-            headerButtonSection.insertBefore(premiumBadge, headerButtonSection.firstChild); // Insert before the first child
+            headerButtonSection.insertBefore(
+                premiumBadge,
+                headerButtonSection.firstChild
+            ); // Insert before the first child
         }
     } catch (error) {
         console.error("Error checking premium status:", error);

@@ -13,7 +13,7 @@ const razorpay = new Razorpay({
 exports.createPremiumOrder = async (req, res) => {
     try {
         const order = await razorpay.orders.create({
-            amount: 50000, // Amount in paise (₹500.00)
+            amount: 2500, // Amount in paise (₹25.00)
             currency: "INR",
             receipt: `receipt_${req.user.id}_${Date.now()}`,
         });

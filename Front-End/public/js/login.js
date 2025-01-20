@@ -38,19 +38,13 @@ forgotSubmit.addEventListener("click", async (e) => {
     const email = document.getElementById("forgotEmail").value.trim();
 
     try {
-        const response = await axios.post(`${BASE_URL}/api/forgotpassword`, {
-            email,
-        });
+        const response = await axios.post(`${BASE_URL}/api/forgotpassword`, { email });
         alert(response.data.message || "Password reset email sent!");
         forgotPasswordForm.reset(); // Reset the form
         forgotPasswordModal.style.display = "none"; // Hide the modal
     } catch (error) {
-        console.log("this message print first");
         console.log(error);
-        alert(
-            error.response?.data?.message ||
-            "An error occurred. Please try again."
-        );
+        alert(error.response?.data?.message || "An error occurred. Please try again.");
     }
 });
 

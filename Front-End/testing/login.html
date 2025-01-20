@@ -1,126 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Sign In</title>
-        <link rel="stylesheet" href="./public/css/signup-signin.css" />
-        <style>
-            .password-container {
-                position: relative;
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Form</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        #checkbox input {
+            margin-right: 10px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                padding: 15px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
-            .password-container input {
-                padding-right: 40px; /* To make space for the icon */
+            input, button {
+                font-size: 14px;
             }
 
-            .password-toggle {
-                position: absolute;
-                top: 50%;
-                right: 10px;
-                transform: translateY(-50%);
-                cursor: pointer;
-                font-size: 18px;
-                color: #888;
+            label {
+                font-size: 12px;
             }
+        }
+    </style>
+</head>
 
-            .password-toggle:hover {
-                color: teal;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h2>Sign In</h2>
-            <form id="signinForm">
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Email"
-                    required
-                />
-                <div class="password-container">
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Password"
-                        required
-                    />
-                    <span id="togglePassword" class="password-toggle">👁️</span>
-                </div>
-                <button type="submit">Sign In</button>
-                <div class="link">
-                    <p>
-                        Don't have an account?
-                        <a href="./signup.html">Sign Up</a>
-                    </p>
-                </div>
-            </form>
+<body>
+    <form action="">
+        <input type="text" name="name" id="name" placeholder="Enter your name">
+        <input type="email" name="email" id="email" placeholder="Enter your email">
+        <input type="password" name="password" id="password" placeholder="Enter your password">
+        <div id="checkbox">
+            <input type="checkbox" name="showPassword" id="showPassword">
+            <label for="showPassword">Show Password</label>
         </div>
+        <button type="submit">Sign Up</button>
+    </form>
+    <script>
+        const showPassword = document.getElementById('showPassword');
+        const password = document.getElementById('password');
 
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script>
-            const BASE_URL = "http://localhost:3000";
+        showPassword.addEventListener('change', () => {
+            if (showPassword.checked) {
+                password.type = 'text';
+            } else {
+                password.type = 'password';
+            }
+        });
+    </script>
+</body>
 
-            // Toggle password visibility
-            const passwordInput = document.getElementById("password");
-            const togglePassword = document.getElementById("togglePassword");
-
-            togglePassword.addEventListener("click", () => {
-                // Toggle the input type between password and text
-                const type =
-                    passwordInput.getAttribute("type") === "password"
-                        ? "text"
-                        : "password";
-                passwordInput.setAttribute("type", type);
-
-                // Change the icon accordingly
-                togglePassword.textContent = type === "password" ? "👁️" : "🙈";
-            });
-
-            // Sign-in form submission logic
-
-            const signinForm = document.getElementById("signinForm");
-
-            signinForm.addEventListener("submit", async (event) => {
-                event.preventDefault(); // Prevent the default form submission behavior
-
-                // Retrieve input values
-                const email = document.getElementById("email").value.trim();
-                const password = document.getElementById("password").value;
-
-                try {
-                    // Make a POST request to the login endpoint
-                    const response = await axios.post(`${BASE_URL}/api/login`, {
-                        email,
-                        password,
-                    });
-
-                    // Handle successful login
-                    if (response.status === 200) {
-                        const message = response.data;
-                        console.log(message);
-
-                        localStorage.setItem("token", message.token);
-                        // alert(
-                        //     message ||
-                        //         "Login successful! Redirecting to dashboard."
-                        // );
-                        // window.location.href = "./expense.html"; // Redirect to expense dashboards
-                    }
-                } catch (error) {
-                    // Handle errors
-                    if (error.response && error.response.data) {
-                        const { message } = error.response.data;
-                        alert(message || "An error occurred during login.");
-                    } else {
-                        console.error("Error signing in:", error);
-                        alert("An error occurred. Please try again later.");
-                    }
-                }
-            });
-        </script>
-    </body>
 </html>

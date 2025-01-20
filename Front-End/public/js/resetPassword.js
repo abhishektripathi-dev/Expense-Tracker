@@ -1,5 +1,17 @@
 const BASE_URL = "http://localhost:3000";
 
+// Toggle password visibility
+const passwordInput = document.getElementById("newPassword");
+const togglePassword = document.getElementById("togglePassword");
+
+togglePassword.addEventListener("click", () => {
+    const type =
+        passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+    togglePassword.textContent = type === "password" ? "👁️" : "🙈";
+});
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const resetToken = urlParams.get("token");
