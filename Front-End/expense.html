@@ -6,30 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daily Expense Tracker</title>
     <link rel="stylesheet" href="./public/css/expense.css">
-    <style>
-        nav button {
-            /* width: 100%; */
-            padding: 12px;
-            background-color: teal;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        nav button:hover {
-            background-color: #006d6d;
-        }
-    </style>
+    <link rel="stylesheet" href="./public/css/navbar.css">  
+    <link rel="icon" href="./public/images/logo.webp" type="image/webp">
 </head>
 
 <body>
 
     <nav>
-        <button onclick="window.location.href = './leaderboard.html'">Leaderboard</button>
-        <button onclick="window.location.href = './expense.html'">Expense</button>
+        <div class="logo">
+            <img src="./public/images/logo.webp" alt="ExpenseTracker Logo">
+            <span style="color: white; font-size: 20px;">ExpenseTrackerDashboard</span>
+        </div>
+        <div class="hamburger" id="hamburger">
+            &#9776;
+        </div>
+        <div class="nav-links" id="nav-links">
+            <button onclick="window.location.href = './expense.html'">Expense</button>
+            <button onclick="window.location.href = './leaderboard.html'">Leaderboard</button>
+            <button id="download-file-for-premium">Download</button>
+            <button id="logoutButton">Logout</button>
+        </div>
     </nav>
+
 
 
     <div class="container">
@@ -37,7 +35,6 @@
             <h2>Daily Expense Tracker</h2>
             <div class="header-button">
                 <button id="buyPremiumButton" class="buy-premium-button">Buy Premium</button>
-                <button id="logoutButton" class="logout-button">Logout</button>
             </div>
         </div>
 
@@ -93,6 +90,7 @@
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./public/js/navbar.js"></script>
     <script src="./public/js/expense.js"></script>
 </body>
 

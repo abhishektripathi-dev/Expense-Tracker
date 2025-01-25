@@ -117,7 +117,7 @@ const populateTable = (expenses) => {
 // Add or update expense
 const addOrUpdateExpense = async (event) => {
     event.preventDefault();
-    console.log("Entry point addOrUpdateExpense");
+    // console.log("Entry point addOrUpdateExpense");
     const amount = document.getElementById("amount").value.trim();
     const description = document.getElementById("description").value.trim();
     const category =
@@ -321,6 +321,37 @@ if (premiumButton) {
 }
 
 expenseForm.addEventListener("submit", addOrUpdateExpense);
+
+
+// Download expenses as CSV
+const downloadBtn = document.getElementById("download-file-for-premium");
+
+downloadBtn.addEventListener("click", async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/api/download`, {
+          headers: { Authorization: `Bearer ${token}` },
+          responseType: "blob",
+        });
+        // console.log(response.data);
+
+        const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = downloadUrl;
+        link.setAttribute("download", "premium-file.txt");
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            handleUnauthorized();
+        } else if (error.response && error.response.status === 403) {
+            alert("Downloading is only for premium members");
+        } else {
+            console.error("Error downloading file:", error);
+        }
+    }
+});
+
 
 // Fetch initial expenses
 fetchExpenses();

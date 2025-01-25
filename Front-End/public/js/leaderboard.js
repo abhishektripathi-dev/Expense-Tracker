@@ -50,14 +50,14 @@ const populateLeaderboard = ({leaderboard}) => {
     });
 };
 
-// Logout functionality
-// const logoutButton = document.getElementById("logoutButton");
-// logoutButton.addEventListener("click", () => {
-//     if (confirm("Are you sure you want to logout?")) {
-//         localStorage.removeItem("token");
-//         window.location.href = "./login.html";
-//     }
-// });
+//Logout functionality
+const logoutButton = document.getElementById("logoutButton");
+logoutButton.addEventListener("click", () => {
+    if (confirm("Are you sure you want to logout?")) {
+        localStorage.removeItem("token");
+        window.location.href = "./login.html";
+    }
+});
 
 // Fetch leaderboard on page load
 fetchLeaderboard();

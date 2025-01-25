@@ -7,33 +7,27 @@
     <title>Leaderboard</title>
     <link rel="stylesheet" href="./public/css/expense.css">
     <link rel="stylesheet" href="./public/css/leaderboard.css">
-    <style>
-        nav button {
-            /* width: 100%; */
-            padding: 12px;
-            background-color: teal;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        nav button:hover {
-            background-color: #006d6d;
-        }
-    </style>
+    <link rel="stylesheet" href="./public/css/navbar.css">
+    <link rel="icon" href="./public/images/logo.webp" type="image/webp">
 </head>
 
 <body>
     <nav>
-        <button onclick="window.location.href = './leaderboard.html'">Leaderboard</button>
-        <button onclick="window.location.href = './expense.html'">Expense</button>
+        <div class="logo">
+            <img src="./public/images/logo.webp" alt="ExpenseTracker Logo">
+            <span style="color: white; font-size: 20px;">ExpenseTrackerDashboard</span>
+        </div>
+        <div class="hamburger" id="hamburger">
+            &#9776;
+        </div>
+        <div class="nav-links" id="nav-links">
+            <button onclick="window.location.href = './expense.html'">Expense</button>
+            <button onclick="window.location.href = './leaderboard.html'">Leaderboard</button>
+            <button onclick="window.location.href = './download.html'">Download</button>
+            <button id="logoutButton">Logout</button>
+        </div>
     </nav>
-    <header class="header">
-        <h1>Expense Tracker Leaderboard</h1>
-        <!-- <button id="logoutButton">Logout</button> -->
-    </header>
+    <h2>Leaderboard</h2>
     <main>
         <table id="leaderboardTable">
             <thead>
@@ -51,6 +45,7 @@
     </main>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./public/js/leaderboard.js"></script>
+    <script src="./public/js/navbar.js"></script>
 </body>
 
 </html>
