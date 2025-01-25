@@ -13,6 +13,8 @@ const expenseRoutes = require("./routes/expenseRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const leaderboardRoutes = require("./routes/leaderboardRoutes");
 const resetPasswordRoutes = require("./routes/resetPassword");
+const downloadRoutes = require('./routes/downloadRoutes');
+
 
 // Models
 const User = require("./models/User");
@@ -21,7 +23,7 @@ const ForgotPassword = require("./models/ForgotPassword");
 const PremiumPayment = require("./models/PremiumPayment");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json()); // Parse JSON from the request body
@@ -33,6 +35,7 @@ app.use("/api", expenseRoutes);
 app.use("/api", paymentRoutes);
 app.use("/api", leaderboardRoutes);
 app.use("/api", resetPasswordRoutes);
+app.use('/api', downloadRoutes);
 
 // Associations for User and Expense
 User.hasMany(Expense, { foreignKey: "userId", onDelete: "CASCADE" });
