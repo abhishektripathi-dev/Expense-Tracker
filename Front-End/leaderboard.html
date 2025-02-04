@@ -14,20 +14,24 @@
 <body>
     <nav>
         <div class="logo">
-            <img src="./public/images/logo.webp" alt="ExpenseTracker Logo">
-            <span style="color: white; font-size: 20px;">ExpenseTrackerDashboard</span>
+            <img src="./public/images/logo.webp" alt="expense-tracker-logo">
+            <h1>Expense Tracker</h1>
         </div>
-        <div class="hamburger" id="hamburger">
-            &#9776;
-        </div>
-        <div class="nav-links" id="nav-links">
-            <button onclick="window.location.href = './expense.html'">Expense</button>
-            <button onclick="window.location.href = './leaderboard.html'">Leaderboard</button>
-            <button onclick="window.location.href = './download.html'">Download</button>
-            <button id="logoutButton">Logout</button>
+        <ul id="menuList">
+            <li><a href="./expense.html">Home</a></li>
+            <li><a href="./leaderboard.html">Leaderboard</a></li>
+            <li><a href="#" id="download-file-for-premium">Download</a></li>
+            <li><a href="#" id="logoutButton">Logout</a></li>
+        </ul>
+        <div class="menu-icon">
+            <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
         </div>
     </nav>
-    <h2>Leaderboard</h2>
+
+    <header>
+        <h2>Leaderboard</h2>
+    </header>
+
     <main>
         <table id="leaderboardTable">
             <thead>
@@ -43,6 +47,7 @@
             </tbody>
         </table>
     </main>
+    <script src="https://kit.fontawesome.com/5f0fc79fec.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./public/js/leaderboard.js"></script>
     <script src="./public/js/navbar.js"></script>

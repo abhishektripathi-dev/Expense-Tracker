@@ -1,0 +1,18 @@
+.navbar {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    justify-content: space-between;
+    align-items: center;
+    background-color: teal;
+    /* padding: 10px; */
+}
+
+.navbar #logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar #logo img {
+    height: 40px;
+    margin-right: 10px;
+}

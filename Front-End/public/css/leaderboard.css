@@ -1,4 +1,10 @@
 /* Leaderboard Styles */
+header h2{
+    text-align: center;
+    margin-top: 20px;
+    color: teal
+}
+
 table {
     width: 100%;
     border-collapse: collapse;

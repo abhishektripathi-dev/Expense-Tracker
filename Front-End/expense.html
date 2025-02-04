@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daily Expense Tracker</title>
+    <link rel="stylesheet" href="./public/css/nav.css">
     <link rel="stylesheet" href="./public/css/expense.css">
     <link rel="stylesheet" href="./public/css/navbar.css">  
     <link rel="icon" href="./public/images/logo.webp" type="image/webp">
@@ -12,7 +13,23 @@
 
 <body>
 
+    
     <nav>
+        <div class="logo">
+            <img src="./public/images/logo.webp" alt="expense-tracker-logo">
+            <h1>Expense Tracker</h1>
+        </div>
+        <ul id="menuList">
+            <li><a href="./expense.html">Home</a></li>
+            <li><a href="./leaderboard.html">Leaderboard</a></li>
+            <li><a href="#" id="download-file-for-premium">Download</a></li>
+            <li><a href="#" id="logoutButton">Logout</a></li>
+        </ul>
+        <div class="menu-icon">
+            <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
+        </div>
+    </nav>
+    <!-- <nav>
         <div class="logo">
             <img src="./public/images/logo.webp" alt="ExpenseTracker Logo">
             <span style="color: white; font-size: 20px;">ExpenseTrackerDashboard</span>
@@ -26,7 +43,7 @@
             <button id="download-file-for-premium">Download</button>
             <button id="logoutButton">Logout</button>
         </div>
-    </nav>
+    </nav> -->
 
 
 
@@ -88,6 +105,7 @@
 
     </div>
 
+    <script src="https://kit.fontawesome.com/5f0fc79fec.js" crossorigin="anonymous"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./public/js/navbar.js"></script>
